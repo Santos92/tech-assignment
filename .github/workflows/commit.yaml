@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
       with:
-        version: 'latest'
+        project_id: $GCP_PROJECT
         service_account_key: ${{ secrets.CI_CD }}
-        # service_account_key: ${{ secrets.API_GW_API_KEY }}
+        export_default_credentials: true
 
     # Configure docker to use the gcloud command-line tool as a credential helper
     - name: Auth Docker
@@ -33,4 +33,4 @@ jobs:
 
     - name: Cloud Run deploy
       run: |
-        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --memory=256Mi --concurrency=20 --max-instances=default --cpu=300m --min-instances=1 --platform=gke --cluster=projects/$GCP_PROJECT/zones/europe-west1-c/clusters/staffzo --cluster-location=europe-west1 --connectivity=internal --no-use-http2 --namespace=event-coordinator
+        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --memory=256Mi --concurrency=20 --max-instances=default --cpu=300m --min-instances=1 --platform=gke --cluster=projects/$GCP_PROJECT/zones/europe-west1-c/clusters/staffzo --cluster-location=europe-west1-c --connectivity=internal --no-use-http2 --namespace=event-coordinator --service-account=event-coordinator-sa@staffzo-316512.iam.gserviceaccount.com
