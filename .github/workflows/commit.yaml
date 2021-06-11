@@ -17,7 +17,7 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
-        project_id: $GCP_PROJECT
+        project_id: staffzo-316512
         service_account_key: ${{ secrets.CI_CD }}
         export_default_credentials: true
 
