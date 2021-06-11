@@ -30,7 +30,7 @@ jobs:
         gcloud config set run/region $GCP_REGION
         gcloud config set project $GCP_PROJECT
     
-    - name: Build the Docker image frontend
+    - name: Build the Docker image
       run: docker build . -t eu.gcr.io/$GCP_PROJECT/event-coordinator
 
     - name: Push image
@@ -38,4 +38,4 @@ jobs:
 
     - name: Cloud Run deploy
       run: |
-        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --memory=256Mi --concurrency=20 --max-instances=default --cpu=300m --min-instances=1 --platform=gke --cluster=projects/$GCP_PROJECT/zones/europe-west1/clusters/staffzo --cluster-location=europe-west1 --connectivity=internal --no-use-http2 --namespace=event-coordinator
+        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --memory=256Mi --concurrency=20 --max-instances=default --cpu=300m --min-instances=1 --platform=gke --cluster=projects/$GCP_PROJECT/zones/europe-west1-c/clusters/staffzo --cluster-location=europe-west1 --connectivity=internal --no-use-http2 --namespace=event-coordinator

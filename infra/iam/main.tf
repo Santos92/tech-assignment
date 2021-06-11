@@ -25,3 +25,27 @@ resource "google_project_iam_member" "project_role_ci_cd" {
 
   depends_on = [google_service_account.ci_cd_sa]
 }
+
+resource "google_project_iam_custom_role" "gke_custom_role" {  
+  project     = var.project_id
+  role_id     = "cicd.gke.manager"
+  title       = "CI/CD GKE manager role"
+  description = "Custom role for minimal access to GKE"
+  permissions = ["container.apiServices.get", "container.apiServices.list", "container.clusters.get", "container.clusters.getCredentials", "container.clusters.list"]
+}
+
+resource "google_project_iam_member" "project_role_ci_cd_gke" {
+  project = var.project_id
+  role    = google_project_iam_custom_role.gke_custom_role.id
+  member  = "serviceAccount:${google_service_account.ci_cd_sa.email}"
+
+  depends_on = [google_project_iam_custom_role.gke_custom_role]
+}
+
+resource "google_project_iam_member" "project_role_ci_cd_storage" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.ci_cd_sa.email}"
+
+  depends_on = [google_service_account.ci_cd_sa]
+}
