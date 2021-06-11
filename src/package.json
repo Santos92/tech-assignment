@@ -1,0 +1,22 @@
+{
+  "name": "tech-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "event-coordinator-publisher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Santos92/tech-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Santos92/tech-assignment/issues"
+  },
+  "homepage": "https://github.com/Santos92/tech-assignment#readme",
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.13.0"
+  }
+}
