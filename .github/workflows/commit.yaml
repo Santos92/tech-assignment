@@ -22,13 +22,8 @@ jobs:
         # service_account_key: ${{ secrets.API_GW_API_KEY }}
 
     # Configure docker to use the gcloud command-line tool as a credential helper
-    - run: |
-        # Set up docker to authenticate
-        # via gcloud command-line tool.
-        gcloud auth configure-docker
-        gcloud config set run/platform managed
-        gcloud config set run/region $GCP_REGION
-        gcloud config set project $GCP_PROJECT
+    - name: Auth Docker
+      run: gcloud --quiet auth configure-docker
     
     - name: Build the Docker image
       run: docker build . -t eu.gcr.io/$GCP_PROJECT/event-coordinator

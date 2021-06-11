@@ -49,3 +49,11 @@ resource "google_project_iam_member" "project_role_ci_cd_storage" {
 
   depends_on = [google_service_account.ci_cd_sa]
 }
+
+resource "google_project_iam_member" "project_role_ci_cd_sa_user" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.ci_cd_sa.email}"
+
+  depends_on = [google_service_account.ci_cd_sa]
+}
