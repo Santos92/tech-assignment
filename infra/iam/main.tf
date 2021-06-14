@@ -27,17 +27,9 @@ resource "google_project_iam_member" "project_role_ci_cd" {
 }
 
 
-resource "google_project_iam_member" "project_role_ci_cd_gke_admin" {
+resource "google_project_iam_member" "ci_cd_gke_service_agent" {
   project = var.project_id
-  role    = "roles/container.admin"
-  member  = "serviceAccount:${google_service_account.ci_cd_sa.email}"
-
-  depends_on = [google_service_account.ci_cd_sa]
-}
-
-resource "google_project_iam_member" "project_role_ci_cd_cluster_admin" {
-  project = var.project_id
-  role    = "roles/container.clusterAdmin"
+  role    = "roles/container.serviceAgent"
   member  = "serviceAccount:${google_service_account.ci_cd_sa.email}"
 
   depends_on = [google_service_account.ci_cd_sa]
