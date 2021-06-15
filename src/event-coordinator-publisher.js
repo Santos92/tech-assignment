@@ -1,6 +1,7 @@
 // Imports the Google Cloud client library
 const { PubSub } = require('@google-cloud/pubsub');
-const http = require('http');
+const express = require('express');
+const app = express();
 const projectID = 'staffzo-316512';
 const topicName = 'event-coordinator-topic';
 const running = true;
@@ -12,12 +13,12 @@ function sleep(ms) {
 }
 const startServer = async () => {
   const port = process.env.PORT || 8080;
-  let app = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World!\n');
+  app.get('/', (req, res) => {
+    res.send(`Event coordinator application!`);
   });
-  app.listen(port, '127.0.0.1');
-  console.log('Node server running on port 8080');
+  app.listen(port, () => {
+    console.log(`Event coordinator application listening on port ${port}`);
+  });
 }
 
 const run = async () => {
