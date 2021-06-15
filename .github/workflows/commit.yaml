@@ -33,4 +33,4 @@ jobs:
 
     - name: Cloud Run deploy
       run: |
-        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --memory=256Mi --concurrency=20 --max-instances=default --cpu=300m --min-instances=1 --platform=gke --cluster=projects/$GCP_PROJECT/zones/europe-west1-c/clusters/staffzo --cluster-location=europe-west1-c --connectivity=internal --no-use-http2 --namespace=event-coordinator
+        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --min-instances=1 --platform=managed --allow-unauthenticated
