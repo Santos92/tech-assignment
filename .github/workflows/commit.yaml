@@ -33,4 +33,4 @@ jobs:
 
     - name: Cloud Run deploy
       run: |
-        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --min-instances=1 --platform=managed --allow-unauthenticated --region=europe-west1
+        gcloud run deploy event-coordinator --image=eu.gcr.io/$GCP_PROJECT/event-coordinator --project=$GCP_PROJECT --min-instances=1 --platform=managed --allow-unauthenticated --region=europe-west1 --set-env-vars=TOPIC_PREFIX=test-topic
