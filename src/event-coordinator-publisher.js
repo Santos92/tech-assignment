@@ -3,7 +3,7 @@ const { PubSub } = require('@google-cloud/pubsub');
 const express = require('express');
 const app = express();
 const projectID = 'staffzo-316512';
-const topicName = 'event-coordinator-topic';
+const topicName = `event-coordinator-$(process.env.TOPIC_PREFIX)`;
 const running = true;
 
 function sleep(ms) {
